@@ -1,12 +1,12 @@
-async function charger(){
+async function render(){
     const reponse= await fetch("https://restcountries.com/v3.1/region/europe?fields=name");
     const countries= await reponse.json();
-    let contenu="";
+    let content="";
     countries.forEach((country) => {
-        contenu+=`<li> ${country.name.official } </li>`;
-        // contenu+="<li>"+ country.name.official + "</li>";
+        content+=`<li> ${country.name.official} </li>`;
+        // content+="<li>" + country.name.official + "</li>";
     });
     const ul=document.querySelector("#countries");
-    ul.innerHTML=contenu;
+    ul.innerHTML=content;
 }
-window.addEventListener("load",charger);
+window.addEventListener("load",render);

@@ -3,7 +3,7 @@ async function render(){
     const countries= await reponse.json();
     let content="";
     countries.forEach((country) => {
-        content+=`<tr><td class="fw-bold">${country.name.official}</td><td>${Intl.NumberFormat("en-EN").format(country.area)}</td><td>${Intl.NumberFormat("en-EN").format(country.population)}</td><td>${country.capital}</td></tr>`;     
+        content+=`<tr><td class="fw-bold">${country.name.official}</td><td class="text-end">${Intl.NumberFormat("en-EN").format(country.area)}</td><td class="text-end">${Intl.NumberFormat("en-EN").format(country.population)}</td><td>${country.capital}</td></tr>`;     
     });
     const tbody=document.querySelector("#tbody");
     tbody.innerHTML=content;

@@ -5,9 +5,9 @@ async function render(){
     countries.forEach((country) => {
         content += `<tr>
                         <td class="fw-bold">${country.name.official}</td>
-                        <td class="text-end">${Intl.NumberFormat("en-EN").format(country.area)}</td>
-                        <td class="text-end">${Intl.NumberFormat("en-EN").format(country.population)}</td>
-                        <td>${country.capital}</td>
+                        <td class="text-end">${country.area.toLocaleString('en-UK')}</td>
+                        <td class="text-end">${country.population.toLocaleString('en-UK')}</td>
+                        <td>${country.capital[0]}</td>
                     </tr>`;     
     });
     const tbody=document.querySelector("#tbody");

@@ -24,5 +24,5 @@ function changeiframe(){
     let iframecontent=`<iframe src="https://www.google.com/maps/embed/v1/view?key=AIzaSyC-YkOjO03-cN1YGvkAMfv-4SJNlAutgDU&center=${countries[index].capitalInfo.latlng[0]},${countries[index].capitalInfo.latlng[1]}&zoom=10&language=en" title="google map"></iframe>`
     iframe.innerHTML=iframecontent;
 }
-document.querySelector("#selectCountries").addEventListener("change",changeiframe)
+selectCountries.addEventListener("change",changeiframe)
 

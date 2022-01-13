@@ -1,28 +1,29 @@
-let reponse,countries;
 const selectCountries=document.querySelector("#selectCountries");
 const iframe=document.querySelector("#iframe");
+
+async function map(code){
+    const reponse = await fetch(`https://restcountries.com/v3.1/alpha?codes=${code}&fields=capitalInfo`);
+    const country=  await reponse.json();  
+    iframe.innerHTML=`<iframe src="https://www.google.com/maps/embed/v1/view?key=AIzaSyC-YkOjO03-cN1YGvkAMfv-4SJNlAutgDU&center=${country[0].capitalInfo.latlng[0]},${country[0].capitalInfo.latlng[1]}&zoom=10&language=en" title="google map"></iframe>`;
+}
+
 async function render(){
-    reponse= await fetch("https://restcountries.com/v3.1/region/europe?fields=name,capitalInfo,cca2");
-    countries= await reponse.json();
+    const reponse= await fetch(`https://restcountries.com/v3.1/region/europe?fields=name,cca2`);
+    const countries= await reponse.json();
     let content="";
-    let iframecontent;
     countries.forEach((country) => {
-        if (country.cca2=="FR"){
-            content += `<option value="FR" selected>${country.name.official}</option>`;
-            iframecontent=`<iframe src="https://www.google.com/maps/embed/v1/view?key=AIzaSyC-YkOjO03-cN1YGvkAMfv-4SJNlAutgDU&center=${country.capitalInfo.latlng[0]},${country.capitalInfo.latlng[1]}&zoom=10&language=en" title="google map"></iframe>`;
-        }else{
-            content += `<option value=${country.cca2}>${country.name.official}</option>`;
-        }    
+        content += `<option id=${country.cca2}>${country.name.official}</option>`;   
     });   
     selectCountries.innerHTML=content;  
-    iframe.innerHTML=iframecontent;
+    selectCountries.options.namedItem("FR").selected=true;
+    map("FR");
 }
-window.addEventListener("load",render);
 
 function changeiframe(){
     const index=selectCountries.selectedIndex;
-    let iframecontent=`<iframe src="https://www.google.com/maps/embed/v1/view?key=AIzaSyC-YkOjO03-cN1YGvkAMfv-4SJNlAutgDU&center=${countries[index].capitalInfo.latlng[0]},${countries[index].capitalInfo.latlng[1]}&zoom=10&language=en" title="google map"></iframe>`
-    iframe.innerHTML=iframecontent;
+    const code=selectCountries.options[index].id;
+    map(code);
 }
-selectCountries.addEventListener("change",changeiframe)
 
+window.addEventListener("load",render);
+selectCountries.addEventListener("change",changeiframe);

@@ -11,17 +11,27 @@ async function render(){
     const reponse= await fetch(`https://restcountries.com/v3.1/region/europe?fields=name,cca2`);
     const countries= await reponse.json();
     let content="";
+    // solution 1
     countries.forEach((country) => {
-        content += `<option id=${country.cca2}>${country.name.official}</option>`;   
+        content += `<option value=${country.cca2}>${country.name.official}</option>`;   
     });   
     selectCountries.innerHTML=content;  
-    selectCountries.options.namedItem("FR").selected=true;
+    selectCountries.value="FR";
+    // solution 2
+    // countries.forEach((country) => {
+    //     content += `<option id=${country.cca2}>${country.name.official}</option>`;   
+    // });   
+    // selectCountries.innerHTML=content; 
+    // selectCountries.options.namedItem("FR").selected=true;
     map("FR");
 }
 
 function changeiframe(){
-    const index=selectCountries.selectedIndex;
-    const code=selectCountries.options[index].id;
+    // solution 1
+    const code=selectCountries.value;
+    // solution 2
+    // const index=selectCountries.selectedIndex;
+    // const code=selectCountries.options[index].id;
     map(code);
 }
 

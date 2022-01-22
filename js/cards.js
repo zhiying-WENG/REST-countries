@@ -10,7 +10,7 @@ async function render(){
                             </a>
                             <div class="card-body">
                                 <h5 class="card-title">${country.name.official}</h5>
-                                <a href="geolocation.html?${country.cca2}" class="card-text">${country.capital[0]}</a>
+                                <a href="geolocation.html?cca2=${country.cca2}" class="card-text">${country.capital[0]}</a>
                             </div>
                         </div>
                     </div>`;

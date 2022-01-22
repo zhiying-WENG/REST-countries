@@ -15,8 +15,11 @@ async function render(){
         content += `<option value=${country.cca2}>${country.name.official}</option>`;   
     });   
     selectCountries.innerHTML=content;  
-    const loc=location.href;
-    const code= (loc.indexOf("?")>-1 && loc.split("?")[1]!="") ? loc.split("?")[1] : "FR";
+    
+    const params = (new URL(document.location)).searchParams;
+    // const params = new URLSearchParams(document.location.search.substring(1));
+    let code = params.get('cca2');
+    code = code ? (code.trim().length !=0 ? code : "FR") : "FR";
     selectCountries.value=code;
     map(code);
 }

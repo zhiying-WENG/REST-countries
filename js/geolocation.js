@@ -4,7 +4,8 @@ const iframe=document.querySelector("#iframe");
 async function map(code){
     const reponse = await fetch(`https://restcountries.com/v3.1/alpha?codes=${code}&fields=capitalInfo`);
     const country=  await reponse.json();  
-    iframe.innerHTML=`<iframe src="https://www.google.com/maps/embed/v1/view?key=AIzaSyC-YkOjO03-cN1YGvkAMfv-4SJNlAutgDU&center=${country[0].capitalInfo.latlng[0]},${country[0].capitalInfo.latlng[1]}&zoom=10&language=en" title="google map"></iframe>`;
+    const [lat,lng]=country[0].capitalInfo.latlng;
+    iframe.src=`https://www.google.com/maps/embed/v1/view?key=AIzaSyC-YkOjO03-cN1YGvkAMfv-4SJNlAutgDU&center=${lat},${lng}&zoom=10&language=en`;
 }
 
 async function render(){
@@ -14,8 +15,7 @@ async function render(){
     countries.forEach((country) => {
         content += `<option value=${country.cca2}>${country.name.official}</option>`;   
     });   
-    selectCountries.innerHTML=content;  
-    
+    selectCountries.innerHTML=content;    
     const params = (new URL(document.location)).searchParams;
     // const params = new URLSearchParams(document.location.search.substring(1));
     let code = params.get('cca2');
